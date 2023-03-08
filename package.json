@@ -1,0 +1,21 @@
+{
+  "name": "songs_world",
+  "version": "1.0.0",
+  "description": "A simple MERN stack demo of Songs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js"
+  },
+  "author": "nitsuh",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^7.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.21"
+  }
+}
