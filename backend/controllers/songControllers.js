@@ -1,24 +1,47 @@
 const asyncHandler = require('express-async-handler')
 
+const Song = require('../models/songModel')
+
 const getSongs = asyncHandler(async(req,res)=>{
-    if(!req.body.name){
-        res.status(400)
-        throw new Error('please and the song name')
-    }
-    res.status(200).json({message:'Get songs'})
+    const songs = await Song.find()
+    res.status(200).json(songs)
 })
 
 const addSong = asyncHandler(async(req,res)=>{
-    console.log(req.body)
-    res.status(200).json({message:'Add song'})
+    if(!req.body.title){
+        res.status(400)
+        throw new Error('please add the song name')
+    }
+    
+    const song = await Song.create({
+        title: req.body.title,
+        album: req.body.album,
+        artist: req.body.artist,
+        genre: req.body.genre
+    })
+
+    res.status(200).json(song)
 })
 
 const updateSong = asyncHandler(async(req,res)=>{
-    res.status(200).json({message:`edit song ${req.params.id}`})
+    const song = await Song.findById(req.params.id)
+    if(!song){
+        res.status(400)
+        throw new Error('Song not found')
+    }
+
+    const updateSong = await Song.findByIdAndUpdate(req.params.id,req.body,{new:true})
+    res.status(200).json(updateSong)
 })
 
 const deleteSong = asyncHandler(async(req,res)=>{
-    res.status(200).json({message:`delete song ${req.params.id}`})
+    const song = await Song.findById(req.params.id)
+    if(!song){
+        res.status(400)
+        throw new Error('Song not found')
+    }
+    await goal.remove()
+    res.status(200).json({message:`delete song ${req.params.title}`})
 })
 
 module.exports = {getSongs,addSong,updateSong,deleteSong}
