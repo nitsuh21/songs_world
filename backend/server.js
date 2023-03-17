@@ -9,10 +9,12 @@ const app = express()
 
 connectDB()
 //middlewares
-app.use(express.json())
-app.use(express.urlencoded({extended:false}))
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 
 app.use('/api/songs',require('./routes/songRoutes'))
+app.use('/api/users',require('./routes/userRoutes'))
 app.use(errorHandler)
 
 app.listen(port,()=>{
